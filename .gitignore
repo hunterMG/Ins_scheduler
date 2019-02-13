@@ -1,0 +1,8 @@
+.DS_Store
+
+# ignore the lockfile for this library
+# composer.lock
+composer.phar
+
+# third party libraries
+vendor/

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  ins:
+    image: vyg1/ins-api
+    volumes:
+      - .:/usr/src/myapp
+    working_dir: /usr/src/myapp
+    command: sh startup.sh

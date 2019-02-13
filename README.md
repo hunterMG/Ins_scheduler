@@ -30,3 +30,6 @@ cd Ins_scheduler
 ```shell
 docker-compose up
 ```
+
+7. 停止任务：按 `Ctrl` + `C`。  
+修改 task.txt 并复制新的视频文件后，可再次执行 `docker-compose up` 启动任务。

@@ -6,3 +6,7 @@ composer.phar
 
 # third party libraries
 vendor/
+
+# ins config
+config.php
+task.txt

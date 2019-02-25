@@ -9,6 +9,7 @@ $verbose = false;
 
 // echo "现在时间是 " . date("h:i:s")."\n";
 $lines =  file("./resource/task.txt");
+$maxIteration = 999999;
 $scheduler = new \Scheduler\Scheduler();
 $jobs = [];
 foreach ($lines as $line) {
@@ -37,10 +38,7 @@ foreach ($lines as $line) {
                 echo "DEBUG: null\n";
                 return;
             }
-            if($ig == null){
-                echo "DEBUG: ig = null\n";
-                exit;
-            }
+            
             $ig->timeline->uploadVideo($video->getFile(), ['caption' => $captionText]);
         } catch (\Exception $e) {
             echo 'Something went wrong: '.$e->getMessage()."\n";
@@ -53,10 +51,10 @@ foreach ($lines as $line) {
 // echo "LOG :".sizeof($scheduler->jobs)."jobs added.\n";
 
 $jobRunner = new \Scheduler\JobRunner\JobRunner();
-$from      = new \DateTime('2017-12-12 20:00:00');
-$to        = new \DateTime('2019-12-12 20:10:00');
+// $from      = new \DateTime('2017-12-12 20:00:00');
+// $to        = new \DateTime('2019-12-12 20:10:00');
 // $reports   = $jobRunner->run($scheduler, $from, $to, true);
 
 $worker = new \Scheduler\Worker\Worker($jobRunner, $scheduler);
-$worker->setMaxIterations(10);
+$worker->setMaxIterations($maxIteration);
 $worker->run(time(), 'PT1M');

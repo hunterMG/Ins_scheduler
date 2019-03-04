@@ -10,8 +10,14 @@ $truncatedDebug = false;
 $ig = new \InstagramAPI\Instagram($debug, $truncatedDebug);
 
 try {
-    $ig->login($username, $password);
-    echo "Login succeed: ".$username."\n";
+    $loginResponse = $ig->login($username, $password);
+    if ($loginResponse !== null && $loginResponse->isTwoFactorRequired()) {
+        $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+        echo "Input the verification code and press ENTER：\n";
+        $verificationCode = trim(fgets(STDIN));
+        $ig->finishTwoFactorLogin($username, $password, $twoFactorIdentifier, $verificationCode);
+    }
+    echo "\nLogin succeed: ".$username."\n";
 } catch (\Exception $e) {
     echo 'Something went wrong(login failed): '.$e->getMessage()."\n";
     exit(0);
